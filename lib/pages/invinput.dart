@@ -60,7 +60,8 @@ class _InvInputState extends State<InvInput> {
         title: Text("Edit Item"),
         actions: [
           IconButton(
-            icon: Icon(Icons.save),
+            icon: Icon(Icons.create_rounded),
+            splashColor: Colors.cyanAccent,
             onPressed: () {
               saveInput();
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -72,6 +73,7 @@ class _InvInputState extends State<InvInput> {
           ),
           IconButton(
               icon: Icon(Icons.cancel),
+              splashColor: Colors.cyanAccent,
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text("No changes..."),
