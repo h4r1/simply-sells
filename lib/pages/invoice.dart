@@ -4,6 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:simply_sells/includes/mywidget.dart';
 import 'package:simply_sells/pages/invinput.dart';
 
+import 'package:simply_sells/includes/printinvdb.dart';
+import 'package:simply_sells/includes/pdfinvoiceapi.dart';
+import 'package:simply_sells/includes/pdf_api.dart';
+
 class InvoicePage extends StatefulWidget {
   const InvoicePage({Key? key}) : super(key: key);
 
@@ -12,18 +16,29 @@ class InvoicePage extends StatefulWidget {
 }
 
 class _InvoicePageState extends State<InvoicePage> {
+  List<PrintInvData> printData = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Invoice"),
         actions: [
-          IconButton(onPressed: null, icon: Icon(Icons.print_rounded)),
           IconButton(
               onPressed: () {
                 ShoppingCart.save();
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content:
+                      Text("Invoice save! You can print the invoice now..."),
+                  duration: Duration(milliseconds: 500),
+                ));
               },
+              splashColor: Colors.cyanAccent,
               icon: Icon(Icons.save)),
+          IconButton(
+              onPressed: loadPDF,
+              splashColor: Colors.cyanAccent,
+              icon: Icon(Icons.print_rounded)),
           IconButton(
             icon: Icon(Icons.clear),
             onPressed: () => showDialog<String>(
@@ -285,5 +300,19 @@ class _InvoicePageState extends State<InvoicePage> {
     }
 
     return (Center(child: Text("(No item)")));
+  }
+
+  void showPDF() async {
+    final pdfFile = await PdfInvoiceApi.generate(printData);
+    PdfApi.openFile(pdfFile);
+  }
+
+  void loadPDF() async {
+    print("Load PDF!");
+    var retval = PrintInv().read(ShoppingCart.sqlID);
+    retval.then((value) {
+      printData = value;
+      showPDF();
+    });
   }
 }

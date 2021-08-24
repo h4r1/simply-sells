@@ -1,3 +1,5 @@
+import 'package:simply_sells/includes/api.dart';
+
 class CItem {
   int id = 0;
   String nama = '';
@@ -6,6 +8,7 @@ class CItem {
 
 class ShoppingCart {
   static String nama = "My Shopping Cart";
+  static String sqlID = "";
   static DateTime date =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   static List<CItem> itemData = [];
@@ -14,8 +17,43 @@ class ShoppingCart {
   static dynamic grandTotal;
   static dynamic qtyTotal;
 
-  static save() {
+
+
+  static save() async {
     print("Save invoice to database...");
+/*
+https://project.graylite.com/tgp/dbhdrdtl/insertnewid/
+{"header":"BB.SI","hcolumn":{"nomor":"C0001","tanggal":"2021-8-24","custid":3,"jumlah":22000},
+"detail":"BB.SI2","dcolumn":[
+{"baris":1,"itemid":3,"qty":2,"harga":5000,"subtotal":10000},
+{"baris":2,"itemid":1,"qty":3,"harga":4000,"subtotal":12000}
+]}
+*/
+    String myDate = "${date.year}-${date.month}-${date.day}";
+    String hdr =
+        '{"nomor":"*new*","tanggal":"$myDate","custid":${custID.id},"jumlah":$grandTotal';
+    String dtl = '';
+
+    for (var i = 0; i < itemData.length; i++) {
+      var subtotal = itemQty[i] * itemData[i].harga;
+      dtl +=
+          '{"baris":${i + 1},"itemid":${itemData[i].id},"qty":${itemQty[i]},"harga":${itemData[i].harga},"subtotal":$subtotal}';
+      if (i < itemData.length - 1) {
+        dtl += ",";
+      }
+    }
+    String myjson =
+        '{"header":"BB.SI","hcolumn":$hdr},"detail":"BB.SI2","dcolumn":[$dtl]}';
+
+    String url =
+        "https://project.graylite.com/tgp/dbhdrdtl/insertnewid/$myjson";
+//    print(url);
+
+    // sqlID for printing
+    sqlID = await callAPI(url);
+//    print(sqlID);
+//    print(sqlID.runtimeType);
+
   }
 
   static clearCart() {
@@ -23,6 +61,7 @@ class ShoppingCart {
         DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
     custID = null;
     itemData.clear();
+    itemQty.clear();
   }
 
   static setPrice(idx, newPrice) {

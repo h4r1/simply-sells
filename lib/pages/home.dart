@@ -107,6 +107,20 @@ class _HomePageState extends State<HomePage> {
     return Center(
         child: Column(
       children: [
+        Expanded(
+            child: Center(
+          child: 
+          // Text(
+          //   "Hello World!",
+          //   style: TextStyle(fontSize: 40),
+          // ),
+          SizedBox(
+//            height: 160,
+//            width: 160,
+            child: Image(image: AssetImage('images/bblogo.png')),
+          ),
+          
+        )),
         Container(
           height: 180,
           child: SingleChildScrollView(
@@ -123,13 +137,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        Expanded(
-            child: Center(
-          child: Text(
-            "Hello World!",
-            style: TextStyle(fontSize: 40),
-          ),
-        )),
+
       ],
     ));
   }
