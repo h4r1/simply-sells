@@ -57,7 +57,7 @@ class PdfInvData {
   }
 }
 
-class PrintInv {
+class PdfInv {
   List<PdfInvData> decodeData(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
     return parsed

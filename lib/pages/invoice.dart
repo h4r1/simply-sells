@@ -309,7 +309,7 @@ class _InvoicePageState extends State<InvoicePage> {
 
   void loadPDF() async {
     print("Load PDF!");
-    var retval = PrintInv().read(ShoppingCart.sqlID);
+    var retval = PdfInv().read(ShoppingCart.sqlID);
     retval.then((value) {
       printData = value;
       showPDF();
