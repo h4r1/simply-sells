@@ -1,5 +1,9 @@
 import 'package:simply_sells/includes/api.dart';
 
+import 'package:simply_sells/includes/pdfinvdb.dart';
+import 'package:simply_sells/includes/pdfinvapi.dart';
+import 'package:simply_sells/includes/pdfapi.dart';
+
 class CItem {
   int id = 0;
   String nama = '';
@@ -17,7 +21,21 @@ class ShoppingCart {
   static dynamic grandTotal;
   static dynamic qtyTotal;
 
+  static List<PdfInvData> printData = [];
 
+  static showPDF() async {
+    final pdfFile = await PdfInvoiceApi.generate(printData);
+    PdfApi.openFile(pdfFile);
+  }
+
+  static loadPDF() async {
+    print("Load PDF!");
+    var retval = PdfInv().read(sqlID);
+    retval.then((value) {
+      printData = value;
+      showPDF();
+    });
+  }
 
   static save() async {
     print("Save invoice to database...");
@@ -53,7 +71,6 @@ https://project.graylite.com/tgp/dbhdrdtl/insertnewid/
     sqlID = await callAPI(url);
 //    print(sqlID);
 //    print(sqlID.runtimeType);
-
   }
 
   static clearCart() {
@@ -72,7 +89,7 @@ https://project.graylite.com/tgp/dbhdrdtl/insertnewid/
     newItem.id = itemRec.id;
     newItem.nama = itemRec.nama;
     newItem.harga = itemRec.harga;
-    newItem.qty = 1;  // default value
+    newItem.qty = 1; // default value
     itemData.add(newItem);
   }
 
