@@ -4,9 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:simply_sells/includes/mywidget.dart';
 import 'package:simply_sells/pages/invinput.dart';
 
-import 'package:simply_sells/includes/printinvdb.dart';
-import 'package:simply_sells/includes/pdfinvoiceapi.dart';
-import 'package:simply_sells/includes/pdf_api.dart';
+import 'package:simply_sells/includes/pdfinvdb.dart';
+import 'package:simply_sells/includes/pdfinvapi.dart';
+import 'package:simply_sells/includes/pdfapi.dart';
 
 class InvoicePage extends StatefulWidget {
   const InvoicePage({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class InvoicePage extends StatefulWidget {
 }
 
 class _InvoicePageState extends State<InvoicePage> {
-  List<PrintInvData> printData = [];
+  List<PdfInvData> printData = [];
 
   @override
   Widget build(BuildContext context) {

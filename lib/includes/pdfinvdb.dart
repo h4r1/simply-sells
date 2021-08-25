@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'api.dart';
 
-class PrintInvData {
+class PdfInvData {
   final String nomor;
   final String tanggal;
   final int jumlah;
@@ -14,7 +14,7 @@ class PrintInvData {
   final int harga;
   final int subtotal;
 
-  PrintInvData(
+  PdfInvData(
       this.nomor,
       this.tanggal,
       this.jumlah,
@@ -27,8 +27,8 @@ class PrintInvData {
       this.harga,
       this.subtotal);
 
-  factory PrintInvData.fromMap(Map<String, dynamic> json) {
-    return PrintInvData(
+  factory PdfInvData.fromMap(Map<String, dynamic> json) {
+    return PdfInvData(
         json['nomor'],
         json['tanggal'],
         json['jumlah'],
@@ -41,8 +41,8 @@ class PrintInvData {
         json['harga'],
         json['subtotal']);
   }
-  factory PrintInvData.fromJson(Map<String, dynamic> json) {
-    return PrintInvData(
+  factory PdfInvData.fromJson(Map<String, dynamic> json) {
+    return PdfInvData(
         json['nomor'],
         json['tanggal'],
         json['jumlah'],
@@ -58,17 +58,17 @@ class PrintInvData {
 }
 
 class PrintInv {
-  List<PrintInvData> decodeData(String responseBody) {
+  List<PdfInvData> decodeData(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
     return parsed
-        .map<PrintInvData>((json) => PrintInvData.fromMap(json))
+        .map<PdfInvData>((json) => PdfInvData.fromMap(json))
         .toList();
   }
 
-  Future<List<PrintInvData>> read(id) async {
+  Future<List<PdfInvData>> read(id) async {
     String apiURL = "https://project.graylite.com/tgp/dbwebbb/printinv/$id";
 
-    List<PrintInvData> retval;
+    List<PdfInvData> retval;
     var responseBody = await callAPI(apiURL);
     retval = decodeData(responseBody);
     return retval;

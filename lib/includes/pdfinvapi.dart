@@ -1,15 +1,15 @@
 import 'dart:io';
 import 'package:simply_sells/includes/mywidget.dart';
-import 'package:simply_sells/includes/printinvdb.dart';
-import 'package:simply_sells/includes/pdf_api.dart';
+import 'package:simply_sells/includes/pdfinvdb.dart';
+import 'package:simply_sells/includes/pdfapi.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:flutter/services.dart';
 
 class PdfInvoiceApi {
-  static Future<File> generate(List<PrintInvData> invoice) async {
+  static Future<File> generate(List<PdfInvData> invoice) async {
     MemoryImage logo = MemoryImage(
-      (await rootBundle.load('images/bblogo.png')).buffer.asUint8List(),
+      (await rootBundle.load('images/bblogorect.png')).buffer.asUint8List(),
     );
 
     final pdf = Document();
@@ -29,7 +29,7 @@ class PdfInvoiceApi {
     return PdfApi.saveDocument(name: 'invoice.pdf', pdf: pdf);
   }
 
-  static Widget buildFooter(List<PrintInvData> invoice) => Column(
+  static Widget buildFooter(List<PdfInvData> invoice) => Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Divider(),
@@ -45,7 +45,7 @@ class PdfInvoiceApi {
         ],
       );
 
-  static Widget buildTotal(List<PrintInvData> invoice) {
+  static Widget buildTotal(List<PdfInvData> invoice) {
     return Container(
       alignment: Alignment.centerRight,
       padding: EdgeInsets.all(5),
@@ -53,7 +53,7 @@ class PdfInvoiceApi {
     );
   }
 
-  static Widget buildDetail(List<PrintInvData> invoice) {
+  static Widget buildDetail(List<PdfInvData> invoice) {
     final headers = ['No.', 'Nama Barang', 'Qty', 'Harga Rp.', 'Jumlah Rp.'];
 
     final data = invoice.map((item) {
@@ -97,7 +97,7 @@ class PdfInvoiceApi {
     return myTable;
   }
 
-  static Widget buildHeader(List<PrintInvData> invoice, MemoryImage logo) {
+  static Widget buildHeader(List<PdfInvData> invoice, MemoryImage logo) {
     var myBold = TextStyle(fontWeight: FontWeight.bold);
 
     return Column(children: [
