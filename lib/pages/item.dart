@@ -90,16 +90,19 @@ class _ItemPageState extends State<ItemPage> {
         itemCount: filteredData.length,
         itemBuilder: (BuildContext context, int index) {
           String strHarga = commaSprtr(filteredData[index].harga.toString());
-          return ListTile(
-            title: Text(filteredData[index].nama),
-            subtitle: Text("Rp. $strHarga"),
-            trailing: IconButton(
-              icon: const Icon(Icons.shopping_cart_outlined),
-              onPressed: () {
-                addCart(filteredData[index]);
-              },
-            ),
-          );
+          return Card(
+              elevation: 4,
+              color: Colors.white70,
+              child: ListTile(
+                title: Text(filteredData[index].nama),
+                subtitle: Text("Rp. $strHarga"),
+                trailing: IconButton(
+                  icon: const Icon(Icons.shopping_cart_outlined),
+                  onPressed: () {
+                    addCart(filteredData[index]);
+                  },
+                ),
+              ));
         },
       );
     }
@@ -126,7 +129,7 @@ class _ItemPageState extends State<ItemPage> {
   }
 
   void getData() async {
-    Future<List<ItemData>> apiData = Item().read();
+    Future<List<ItemData>> apiData;
 
     data = [];
     filteredData = [];

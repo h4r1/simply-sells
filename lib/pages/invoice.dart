@@ -114,27 +114,37 @@ class _InvoicePageState extends State<InvoicePage> {
               )
             ],
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 100,
-                child: Text(
-                  "Customer",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+          // Container(
+          //   child: Text(
+          //     "Customer",
+          //     style: TextStyle(fontWeight: FontWeight.bold),
+          //   ),
+          // ),
+          Container(
+              width: double.infinity,
+              height: 100,
+            child: SingleChildScrollView(
+              child: Card(
+                elevation: 4,
+                child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          child: Text("${ShoppingCart.custID?.nama ?? ''}"),
+                        ),
+                        Container(
+                          child: Text("${ShoppingCart.custID?.alamat ?? ''}"),
+                        ),
+                        Container(
+                          child: Text("${ShoppingCart.custID?.telepon ?? ''}"),
+                        ),
+                      ],
+                    )),
               ),
-              Container(
-                child: Text("${ShoppingCart.custID?.nama ?? ''}"),
-              ),
-              Container(
-                child: Text("${ShoppingCart.custID?.alamat ?? ''}"),
-              ),
-              Container(
-                child: Text("${ShoppingCart.custID?.telepon ?? ''}"),
-              ),
-            ],
+            ),
           ),
           SizedBox(
             height: 10,

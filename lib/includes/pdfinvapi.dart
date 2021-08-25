@@ -110,29 +110,18 @@ class PdfInvoiceApi {
           children: [
             Container(width: 60, height: 60, child: Image(logo)),
             SizedBox(width: 10),
-Container(
-height: 60, 
-child: 
-Column(
-  mainAxisAlignment: MainAxisAlignment.center,
-  crossAxisAlignment: CrossAxisAlignment.start,
-  children: [
-    Text("BB Florist"),
-    Text("Jl. Kusuma Bangsa"),
-    Text("Surabaya"),
-  ]
-),
-
-
-),
-
-
-//             Text("""
-// Bunga Bakung Florist
-// Jl. Kanginan
-// Surabaya
-//             """),
-            SizedBox(width: 80), 
+            Container(
+              height: 60,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("BB Florist"),
+                    Text("Jl. Kusuma Bangsa"),
+                    Text("Surabaya"),
+                  ]),
+            ),
+            SizedBox(width: 80),
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(
                 children: [
@@ -151,10 +140,16 @@ Column(
                 ],
               ),
               SizedBox(height: 20),
-              Text("Kepada Yth.", style: myBold),
-              Text(invoice[0].namacust),
-              Text(invoice[0].alamat),
-              Text(invoice[0].telepon),
+              Container(
+                  constraints: BoxConstraints(minWidth: 100, maxWidth: 200),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Kepada Yth.", style: myBold),
+                        Text(invoice[0].namacust),
+                        Text(invoice[0].alamat),
+                        Text(invoice[0].telepon),
+                      ])),
               SizedBox(height: 20),
             ])
           ]),

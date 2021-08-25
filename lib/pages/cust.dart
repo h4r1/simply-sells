@@ -89,22 +89,26 @@ class _CustPageState extends State<CustPage> {
       return ListView.builder(
         itemCount: filteredData.length,
         itemBuilder: (BuildContext context, int index) {
-          return ListTile(
-            title: Text(filteredData[index].nama),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(filteredData[index].alamat),
-                Text(filteredData[index].telepon),
-              ],
-            ),
-            trailing: IconButton(
-              icon: const Icon(Icons.shopping_cart_outlined),
-              onPressed: () {
-                addCart(filteredData[index]);
-              },
-            ),
-          );
+          return Card(
+              margin: EdgeInsets.symmetric(vertical: 4),
+              elevation: 4,
+              color: Colors.white70,
+              child: ListTile(
+                title: Text(filteredData[index].nama),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(filteredData[index].alamat),
+                    Text(filteredData[index].telepon),
+                  ],
+                ),
+                trailing: IconButton(
+                  icon: const Icon(Icons.shopping_cart_outlined),
+                  onPressed: () {
+                    addCart(filteredData[index]);
+                  },
+                ),
+              ));
         },
       );
     }
@@ -131,7 +135,7 @@ class _CustPageState extends State<CustPage> {
   }
 
   void getData() async {
-    Future<List<CustData>> apiData = Cust().read();
+    Future<List<CustData>> apiData;
 
     data = [];
     filteredData = [];
