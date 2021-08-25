@@ -26,11 +26,11 @@ class _InvInputState extends State<InvInput> {
     cPrice.text = strPrice;
     strPrice = commaSprtr(strPrice);
 
-    strQty = ShoppingCart.itemQty[widget.index].toString();
+    strQty = ShoppingCart.itemData[widget.index].qty.toString();
     cQty.text = strQty;
     strQty = commaSprtr(strQty);
 
-    var subtotal = ShoppingCart.itemQty[widget.index] *
+    var subtotal = ShoppingCart.itemData[widget.index].qty *
         ShoppingCart.itemData[widget.index].harga;
     print(subtotal);
     strSubtotal = commaSprtr(subtotal.toString());
@@ -92,7 +92,7 @@ class _InvInputState extends State<InvInput> {
     ShoppingCart.itemData[widget.index].harga = myPrice;
 
     int myQty = int.parse(cQty.text);
-    ShoppingCart.itemQty[widget.index] = myQty;
+    ShoppingCart.itemData[widget.index].qty = myQty;
 
 //    print(ShoppingCart.itemData[widget.index].harga);
   }

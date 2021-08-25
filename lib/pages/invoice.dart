@@ -243,7 +243,7 @@ class _InvoicePageState extends State<InvoicePage> {
               commaSprtr(ShoppingCart.itemData[idx].harga.toString());
 
           var subtotal =
-              ShoppingCart.itemQty[idx] * ShoppingCart.itemData[idx].harga;
+              ShoppingCart.itemData[idx].qty * ShoppingCart.itemData[idx].harga;
           var strSub = commaSprtr(subtotal.toString());
 
           return ListTile(
@@ -254,7 +254,7 @@ class _InvoicePageState extends State<InvoicePage> {
             subtitle: Row(children: [
               Expanded(
                   child: Text(
-                      "${commaSprtr(ShoppingCart.itemQty[idx].toString())} x Rp. $strHarga")),
+                      "${commaSprtr(ShoppingCart.itemData[idx].qty.toString())} x Rp. $strHarga")),
 //              Container(width: 40, child: Text("Rp. "),),
               Container(
                 width: 120,

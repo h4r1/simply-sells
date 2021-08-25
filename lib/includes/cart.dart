@@ -4,6 +4,7 @@ class CItem {
   int id = 0;
   String nama = '';
   int harga = 0;
+  int qty = 0;
 }
 
 class ShoppingCart {
@@ -12,7 +13,6 @@ class ShoppingCart {
   static DateTime date =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   static List<CItem> itemData = [];
-  static List<int> itemQty = [];
   static dynamic custID;
   static dynamic grandTotal;
   static dynamic qtyTotal;
@@ -35,9 +35,9 @@ https://project.graylite.com/tgp/dbhdrdtl/insertnewid/
     String dtl = '';
 
     for (var i = 0; i < itemData.length; i++) {
-      var subtotal = itemQty[i] * itemData[i].harga;
+      var subtotal = itemData[i].qty * itemData[i].harga;
       dtl +=
-          '{"baris":${i + 1},"itemid":${itemData[i].id},"qty":${itemQty[i]},"harga":${itemData[i].harga},"subtotal":$subtotal}';
+          '{"baris":${i + 1},"itemid":${itemData[i].id},"qty":${itemData[i].qty},"harga":${itemData[i].harga},"subtotal":$subtotal}';
       if (i < itemData.length - 1) {
         dtl += ",";
       }
@@ -61,7 +61,6 @@ https://project.graylite.com/tgp/dbhdrdtl/insertnewid/
         DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
     custID = null;
     itemData.clear();
-    itemQty.clear();
   }
 
   static setPrice(idx, newPrice) {
@@ -73,16 +72,16 @@ https://project.graylite.com/tgp/dbhdrdtl/insertnewid/
     newItem.id = itemRec.id;
     newItem.nama = itemRec.nama;
     newItem.harga = itemRec.harga;
+    newItem.qty = 1;  // default value
     itemData.add(newItem);
-    itemQty.add(1); // default value
   }
 
   static calculate() {
     grandTotal = 0;
     qtyTotal = 0;
     for (var i = 0; i < itemData.length; i++) {
-      grandTotal = grandTotal + (itemQty[i] * itemData[i].harga);
-      qtyTotal += itemQty[i];
+      grandTotal = grandTotal + (itemData[i].qty * itemData[i].harga);
+      qtyTotal += itemData[i].qty;
     }
   }
 
