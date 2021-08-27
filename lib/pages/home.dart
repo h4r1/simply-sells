@@ -59,11 +59,13 @@ class _HomePageState extends State<HomePage> {
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.view_in_ar),
+//          icon: Icon(Icons.view_in_ar),
+          icon: Icon(Icons.widgets),
           label: 'Product',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.portrait),
+//          icon: Icon(Icons.portrait),
+          icon: Icon(Icons.person),
           label: 'Customer',
         ),
         BottomNavigationBarItem(

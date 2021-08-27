@@ -154,9 +154,9 @@ class _InvoicePageState extends State<InvoicePage> {
               ),
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
+          Divider(color: Colors.black),
+
+
           Expanded(
 //              height: 350,
               child: SingleChildScrollView(
@@ -165,6 +165,7 @@ class _InvoicePageState extends State<InvoicePage> {
           SizedBox(
             height: 20,
           ),
+          Divider(color: Colors.black),
           Center(
             child: Text(
               "${commaSprtr(ShoppingCart.itemData.length.toString())} items, Total Qty: ${commaSprtr(ShoppingCart.qtyTotal.toString())}",
@@ -261,8 +262,10 @@ class _InvoicePageState extends State<InvoicePage> {
           var strSub = commaSprtr(subtotal.toString());
 
           return ListTile(
+            leading: Text("${idx + 1}."),
+            minLeadingWidth: 5,
             title: Text(
-              "${idx + 1}.  ${ShoppingCart.itemData[idx].nama}",
+              "${ShoppingCart.itemData[idx].nama}",
               style: TextStyle(fontSize: 14),
             ),
             subtitle: Row(children: [
