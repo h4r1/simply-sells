@@ -12,7 +12,6 @@ class CItem {
 }
 
 class ShoppingCart {
-  static String nama = "My Shopping Cart";
   static String sqlID = "";
   static DateTime date =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
@@ -30,6 +29,10 @@ class ShoppingCart {
 
   static loadPDF() async {
     print("Load PDF!");
+
+    if (sqlID.isEmpty) {
+      return;
+    }
     var retval = PdfInv().read(sqlID);
     retval.then((value) {
       printData = value;
@@ -78,6 +81,7 @@ https://project.graylite.com/tgp/dbhdrdtl/insertnewid/
         DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
     custID = null;
     itemData.clear();
+    sqlID = "";
   }
 
   static setPrice(idx, newPrice) {
@@ -100,9 +104,5 @@ https://project.graylite.com/tgp/dbhdrdtl/insertnewid/
       grandTotal = grandTotal + (itemData[i].qty * itemData[i].harga);
       qtyTotal += itemData[i].qty;
     }
-  }
-
-  static printName() {
-    print("Hello ${ShoppingCart.nama}");
   }
 }

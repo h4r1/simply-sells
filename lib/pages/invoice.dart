@@ -31,10 +31,18 @@ class _InvoicePageState extends State<InvoicePage> {
               icon: Icon(Icons.save)),
           IconButton(
               onPressed: () {
-                ShoppingCart.loadPDF();
+                if (ShoppingCart.sqlID.isNotEmpty) {
+                  ShoppingCart.loadPDF();
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("Can't print, data is not saved..."),
+                    duration: Duration(milliseconds: 500),
+                  ));
+                }
               },
               splashColor: Colors.cyanAccent,
-              icon: Icon(Icons.print_rounded)),
+//              icon: Icon(Icons.print_rounded)),
+              icon: Icon(Icons.picture_as_pdf)),
           IconButton(
             icon: Icon(Icons.clear),
             onPressed: () => showDialog<String>(
@@ -121,8 +129,8 @@ class _InvoicePageState extends State<InvoicePage> {
           //   ),
           // ),
           Container(
-              width: double.infinity,
-              height: 100,
+            width: double.infinity,
+            height: 100,
             child: SingleChildScrollView(
               child: Card(
                 elevation: 4,
