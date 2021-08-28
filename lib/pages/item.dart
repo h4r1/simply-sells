@@ -92,7 +92,7 @@ class _ItemPageState extends State<ItemPage> {
           String strHarga = commaSprtr(filteredData[index].harga.toString());
           return Card(
               elevation: 4,
-              color: Colors.white70,
+              color: (index.isOdd ? Colors.white70 : Colors.white),
               child: ListTile(
                 title: Text(filteredData[index].nama),
                 subtitle: Text("Rp. $strHarga"),

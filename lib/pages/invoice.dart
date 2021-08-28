@@ -16,7 +16,7 @@ class _InvoicePageState extends State<InvoicePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Invoice"),
+        title: Text("Invoicing"),
         actions: [
           IconButton(
               onPressed: () {

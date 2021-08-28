@@ -1,33 +1,119 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:simply_sells/includes/quotes.dart';
-import 'package:simply_sells/pages/item.dart';
-import 'package:simply_sells/pages/cust.dart';
-import 'package:simply_sells/pages/invoice.dart';
+
+class GridListItems {
+  var color;
+  String title;
+  var icon;
+  var route;
+
+  GridListItems({color, title, icon, route})
+      : color = Colors.cyan,
+        title = title,
+        icon = icon,
+        route = route;
+}
+
+class MyGrid extends StatefulWidget {
+  const MyGrid({Key? key}) : super(key: key);
+
+  @override
+  _MyGridState createState() => _MyGridState();
+}
+
+class _MyGridState extends State<MyGrid> {
+  List<GridListItems> items = [
+    GridListItems(
+        color: Colors.amber,
+        title: 'Sales',
+        icon: Icons.sell,
+        route: 'invPage'),
+    GridListItems(
+        color: Colors.yellow,
+        title: 'Payment',
+        icon: Icons.point_of_sale,
+        route: 'paymentPage'),
+    GridListItems(
+        color: Colors.pink,
+        title: 'Purchasing',
+        icon: Icons.local_mall,
+        route: 'purcPage'),
+    GridListItems(
+        color: Colors.red,
+        title: 'Pay Purchased',
+        icon: Icons.money,
+        route: 'payPurcPage'),
+    GridListItems(
+        color: Colors.blue,
+        title: 'Sales Report',
+        icon: Icons.description,
+        route: 'salesRptPage'),
+    GridListItems(
+        color: Colors.blue[300],
+        title: 'Payment Report',
+        icon: Icons.description_outlined,
+        route: 'payRptPage'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      crossAxisCount: 2,
+      crossAxisSpacing: 5,
+      mainAxisSpacing: 5,
+      physics: BouncingScrollPhysics(),
+      padding: EdgeInsets.all(10.0),
+
+      // children: items.map((i) {
+      //   return Center(
+      //     child: Text(
+      //       "${i.title}",
+      //       style: Theme.of(context).textTheme.headline5,
+      //     ),
+      //   );
+      // }).toList(),
+      children: items
+          .map((data) => GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed(data.route);
+                  print("tapped");
+                },
+                child: Padding(
+                    padding: EdgeInsets.all(5),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Container(
+                            padding: const EdgeInsets.all(10),
+                            color: data.color,
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    data.icon,
+                                    size: 40,
+                                    color: Colors.black,
+                                  ),
+                                  Text(data.title,
+                                      style:
+                                          Theme.of(context).textTheme.subtitle2,
+                                      textAlign: TextAlign.center)
+                                ])))),
+              ))
+          .toList(),
+    );
+  }
+}
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  int index = 0;
-
   String? quotesContent;
   String? quotesAuthor;
-
-  void loadQuote() {
-    var retval = DailyQuotes.getQuote();
-
-    retval.then((value) {
-      print("${value['content']} by ${value['author']}");
-
-      setState(() {
-        quotesContent = value['content'];
-        quotesAuthor = value['author'];
-      });
-    });
-  }
 
   @override
   void initState() {
@@ -37,60 +123,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: buildPages(),
-      bottomNavigationBar: buildBottomBar(),
-    );
-  }
-
-  Widget buildBottomBar() {
-//    final style = TextStyle(color: Colors.white);
-
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      backgroundColor: Theme.of(context).primaryColor,
-      selectedItemColor: Colors.white,
-      unselectedItemColor: Colors.white70,
-      currentIndex: index,
-      items: [
-        BottomNavigationBarItem(
-//          icon: Text('Home', style: style),
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-//          icon: Icon(Icons.view_in_ar),
-          icon: Icon(Icons.widgets),
-          label: 'Product',
-        ),
-        BottomNavigationBarItem(
-//          icon: Icon(Icons.portrait),
-          icon: Icon(Icons.person),
-          label: 'Customer',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_cart_outlined),
-          label: 'Cart',
-        ),
-      ],
-      onTap: (int index) => setState(() => this.index = index),
-    );
-  }
-
-  Widget buildPages() {
-    switch (index) {
-      case 0:
-        return homeScaffold();
-      case 1:
-        return ItemPage();
-      case 2:
-        return CustPage();
-      case 3:
-        return InvoicePage();
-
-      default:
-        return Container();
-    }
+    return homeScaffold();
   }
 
   Widget homeScaffold() {
@@ -106,39 +139,52 @@ class _HomePageState extends State<HomePage> {
     return Center(
         child: Column(
       children: [
+//        SizedBox(height: 10),
+        // Center(
+        //   child: SizedBox(
+        //     height: 120,
+        //     width: 120,
+        //     child: Image(image: AssetImage('images/bblogorect.png')),
+        //   ),
+        // ),
+//        SizedBox(height: 10),
         Expanded(
-            child: Center(
-          child: 
-          // Text(
-          //   "Hello World!",
-          //   style: TextStyle(fontSize: 40),
-          // ),
-          SizedBox(
-//            height: 160,
-//            width: 160,
-            child: Image(image: AssetImage('images/bblogo.png')),
-          ),
-          
-        )),
-        Container(
-          height: 180,
-          child: SingleChildScrollView(
-            child: InkWell(
-              child: quoteCard(),
-              onTap: () {
-                print("Refresh!");
-                setState(() {
-                  quotesContent = "Loading...";
-                  quotesAuthor = "";
-                });
-                loadQuote();
-              },
-            ),
-          ),
+          flex: 3,
+          child: MyGrid(),
         ),
 
+        Container(height: 180, child: quoteArea()),
       ],
     ));
+  }
+
+  void loadQuote() {
+    var retval = DailyQuotes.getQuote();
+
+    retval.then((value) {
+      print("${value['content']} by ${value['author']}");
+
+      setState(() {
+        quotesContent = value['content'];
+        quotesAuthor = value['author'];
+      });
+    });
+  }
+
+  Widget quoteArea() {
+    return SingleChildScrollView(
+      child: InkWell(
+        child: quoteCard(),
+        onTap: () {
+          print("Refresh!");
+          setState(() {
+            quotesContent = "Loading...";
+            quotesAuthor = "";
+          });
+          loadQuote();
+        },
+      ),
+    );
   }
 
   Widget quoteCard() {

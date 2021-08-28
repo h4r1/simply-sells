@@ -92,7 +92,7 @@ class _CustPageState extends State<CustPage> {
           return Card(
               margin: EdgeInsets.symmetric(vertical: 4),
               elevation: 4,
-              color: Colors.white70,
+              color: (index.isOdd ? Colors.white70 : Colors.white),
               child: ListTile(
                 title: Text(filteredData[index].nama),
                 subtitle: Column(

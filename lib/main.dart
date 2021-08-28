@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+//import 'pages/hometab.dart';
 import 'pages/home.dart';
+import 'package:simply_sells/pages/invoice/invhome.dart';
+//import 'pages/homev1.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -17,7 +21,13 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme
         ),
       ),
-      home: MyHomePage(title: 'THE TITLE'),
+//      home: MyHomePage(title: 'THE TITLE'),
+      initialRoute: 'homePage',
+      routes: {  
+        'homePage': (context) => MyHomePage(title: ""),
+        'invPage': (context) => InvHome(),
+  },
+
     );
   }
 }
@@ -34,6 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return HomePage();
-//    return ItemPage();
+//    return GridViewDemo();
+//    return MyGrid();
   }
 }
