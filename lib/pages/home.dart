@@ -59,10 +59,10 @@ class _MyGridState extends State<MyGrid> {
   Widget build(BuildContext context) {
     return GridView.count(
       crossAxisCount: 2,
-      crossAxisSpacing: 5,
-      mainAxisSpacing: 5,
+      crossAxisSpacing: 20,
+      mainAxisSpacing: 20,
       physics: BouncingScrollPhysics(),
-      padding: EdgeInsets.all(10.0),
+      padding: EdgeInsets.all(20.0),
 
       // children: items.map((i) {
       //   return Center(
@@ -76,12 +76,11 @@ class _MyGridState extends State<MyGrid> {
           .map((data) => GestureDetector(
                 onTap: () {
                   Navigator.of(context).pushNamed(data.route);
-                  print("tapped");
                 },
                 child: Padding(
                     padding: EdgeInsets.all(5),
                     child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(20),
                         child: Container(
                             padding: const EdgeInsets.all(10),
                             color: data.color,
@@ -149,11 +148,14 @@ class _HomePageState extends State<HomePage> {
         // ),
 //        SizedBox(height: 10),
         Expanded(
-          flex: 3,
+//          flex: 3,
           child: MyGrid(),
         ),
 
-        Container(height: 180, child: quoteArea()),
+        Container(
+          height: 180, 
+          margin: EdgeInsets.only(top: 15),
+          child: quoteArea()),
       ],
     ));
   }

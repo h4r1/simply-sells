@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:simply_sells/includes/quotes.dart';
-import 'package:simply_sells/pages/item.dart';
-import 'package:simply_sells/pages/cust.dart';
-import 'package:simply_sells/pages/invoice.dart';
+import 'package:simply_sells/pages/invoice/item.dart';
+import 'package:simply_sells/pages/invoice/cust.dart';
+import 'package:simply_sells/pages/invoice/invoice.dart';
 
 class HomePage extends StatefulWidget {
   @override

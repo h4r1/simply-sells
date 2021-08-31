@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:simply_sells/includes/invbrowsedb.dart';
+import 'package:simply_sells/models/invbrowsedb.dart';
 import 'package:simply_sells/includes/mywidget.dart';
+import 'package:simply_sells/includes/cart.dart';
 
-import 'package:simply_sells/pages/item.dart';
-import 'package:simply_sells/pages/cust.dart';
-import 'package:simply_sells/pages/invoice.dart';
+import 'package:simply_sells/pages/invoice/item.dart';
+import 'package:simply_sells/pages/invoice/cust.dart';
+import 'package:simply_sells/pages/invoice/invoice.dart';
 
 class InvHome extends StatefulWidget {
   const InvHome({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class _InvHomeState extends State<InvHome> {
   @override
   void initState() {
     getData();
+    ShoppingCart.clearCart();
     super.initState();
   }
 
@@ -47,7 +49,6 @@ class _InvHomeState extends State<InvHome> {
 //      body: _buildList(),
       body: buildPages(),
       bottomNavigationBar: buildBottomBar(),
-
     );
   }
 
@@ -57,32 +58,42 @@ class _InvHomeState extends State<InvHome> {
         itemCount: data.length,
         itemBuilder: (BuildContext context, int i) {
           String strJumlah = commaSprtr(data[i].jumlah.toString());
-          return Card(
-              elevation: 4,
-              color: (i.isOdd ? Colors.white70 : Colors.white),
-              child: ListTile(
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${data[i].tanggal}",
-                      style: Theme.of(context).textTheme.subtitle2,
-                    ),
-                    Text("${data[i].nomor}",
-                    style: Theme.of(context).textTheme.headline6,
-                    ),
-                  ],
-                ),
+          return InkWell(
+              onTap: () async {
+                await ShoppingCart.load(data[i].id);
 
-                subtitle: Text(data[i].nama),
-                trailing: Text("Rp. $strJumlah"),
-                // trailing: IconButton(
-                //   icon: const Icon(Icons.shopping_cart_outlined),
-                //   onPressed: () {
-                //     addCart(filteredData[index]);
-                //   },
-                // ),
-              ));
+                setState(() {
+                  index = 3;
+                });
+              },
+              child: Card(
+                  elevation: 4,
+                  color: (i.isOdd ? Colors.white70 : Colors.white),
+                  child: ListTile(
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${data[i].tanggal}",
+                          style: Theme.of(context).textTheme.subtitle2,
+                        ),
+                        Text(
+                          "${data[i].nomor}",
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, decoration: TextDecoration.underline),
+                        ),
+                      ],
+                    ),
+
+                    subtitle: Text(data[i].nama),
+                    trailing: Text("Rp. $strJumlah"),
+
+                    // trailing: IconButton(
+                    //   icon: const Icon(Icons.shopping_cart_outlined),
+                    //   onPressed: () {
+                    //     addCart(filteredData[index]);
+                    //   },
+                    // ),
+                  )));
         },
       );
     }
@@ -133,7 +144,6 @@ class _InvHomeState extends State<InvHome> {
     );
   }
 
-
   Widget buildPages() {
     switch (index) {
       case 0:
@@ -149,5 +159,4 @@ class _InvHomeState extends State<InvHome> {
         return Container();
     }
   }
-
 }

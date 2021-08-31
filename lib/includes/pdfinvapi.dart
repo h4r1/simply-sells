@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:simply_sells/includes/mywidget.dart';
-import 'package:simply_sells/includes/pdfinvdb.dart';
+import 'package:simply_sells/models/pdfinvdb.dart';
 import 'package:simply_sells/includes/pdfapi.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
