@@ -4,8 +4,6 @@ import 'package:simply_sells/models/custdb.dart';
 import 'package:simply_sells/includes/cart.dart';
 import 'package:simply_sells/pages/invoice/custinput.dart';
 
-//import 'package:url_launcher/url_launcher.dart';
-
 class CustPage extends StatefulWidget {
   @override
   _CustPageState createState() => _CustPageState();
@@ -56,16 +54,6 @@ class _CustPageState extends State<CustPage> {
             onPressed: _searchPressed,
           ),
           actions: [
-// onPressed: () async => await launch(
-//          "https://wa.me/${number}?text=Hello"),
-//       child: Text('Open Whatsapp'),
-          //   IconButton(
-          //     icon: Icon(Icons.add),
-          //     splashColor: Colors.cyanAccent,
-          //     onPressed: () async => await launch(
-          // "https://wa.me/081252990613?text=Hello")
-          //   ),
-
             IconButton(
               icon: Icon(Icons.person_add_alt_1_outlined),
               splashColor: Colors.cyanAccent,
@@ -83,7 +71,7 @@ class _CustPageState extends State<CustPage> {
       return (CustInput(cust: custData));
     })).whenComplete(() {
 //      setState(() {
-        getData();
+      getData();
 //      });
     });
   }
@@ -150,9 +138,12 @@ class _CustPageState extends State<CustPage> {
               Row(
                 children: [
                   Icon(Icons.phone_android),
-                  Text(
-                    filteredData[index].telepon,
-                    style: TextStyle(color: Colors.black),
+                  InkWell(
+                    onTap: () => callWhatsApp(filteredData[index].telepon),
+                    child: Text(
+                      filteredData[index].telepon,
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ),
                 ],
               ),

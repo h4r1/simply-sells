@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simply_sells/includes/api.dart';
+import 'package:simply_sells/includes/mywidget.dart';
 import 'dart:convert' show HtmlEscape;
 
 class CustInput extends StatefulWidget {
@@ -139,6 +140,7 @@ class _CustInputState extends State<CustInput> {
           TextField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
+              isDense: true,
             ),
             controller: cNama,
           ),
@@ -147,16 +149,50 @@ class _CustInputState extends State<CustInput> {
             maxLines: 5,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
+              isDense: true,
             ),
             controller: cAlamat,
           ),
           Text("Telepon"),
-          TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-            ),
-            controller: cTelepon,
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    isDense: true,
+                  ),
+                  controller: cTelepon,
+                ),
+              ),
+              InkWell(
+                child: Container(
+                  margin: EdgeInsets.all(8),
+                  height: 48,
+                  width: 48,
+                  child: Image(image: AssetImage('images/WhatsApp.png')),
+                ),
+                onTap: () => callWhatsApp(cTelepon.text),
+                // onTap: () async {
+                //   var myWAphone = cTelepon.text;
+                //   myWAphone = myWAphone.replaceAll('-', '');
+                //   myWAphone = "+62$myWAphone";
+                //   print(myWAphone);
+
+                //   var url = "https://wa.me/$myWAphone/?text=";
+                //   var encoded = Uri.encodeFull(url);
+                //   await launch(encoded);
+                // },
+              ),
+            ],
           ),
+
+          // TextField(
+          //   decoration: InputDecoration(
+          //     border: OutlineInputBorder(),
+          //   ),
+          //   controller: cTelepon,
+          // ),
         ],
       ),
     ));

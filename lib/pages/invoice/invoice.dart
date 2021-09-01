@@ -156,7 +156,12 @@ class _InvoicePageState extends State<InvoicePage> {
                           child: Row(
                             children: [
                               Icon(Icons.phone_android),
-                              Text("${ShoppingCart.custID?.telepon ?? '---'}"),
+                              InkWell(
+                                onTap: () =>
+                                    callWhatsApp(ShoppingCart.custID?.telepon),
+                                child: Text(
+                                    "${ShoppingCart.custID?.telepon ?? '---'}"),
+                              ),
                             ],
                           ),
                         ),

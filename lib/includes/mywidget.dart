@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:url_launcher/url_launcher.dart';
+
 Widget waitProgress() {
   return Center(
     child: Container(
@@ -9,7 +11,6 @@ Widget waitProgress() {
     ),
   );
 }
-
 
 String commaSprtr(String strNumber) {
   String tmptext = strNumber.replaceAll(",", "");
@@ -30,3 +31,14 @@ String commaSprtr(String strNumber) {
   return newtext;
 }
 
+callWhatsApp(telepon) async {
+  var myWAphone = telepon;
+  myWAphone = myWAphone.replaceAll('-', '');
+  myWAphone = "+62$myWAphone";
+  print(myWAphone);
+
+  var url = "https://wa.me/$myWAphone/?text=";
+  var encoded = Uri.encodeFull(url);
+//                    print(encoded);
+  await launch(encoded);
+}
