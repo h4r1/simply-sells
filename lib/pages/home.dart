@@ -83,7 +83,11 @@ class _MyGridState extends State<MyGrid> {
                         borderRadius: BorderRadius.circular(20),
                         child: Container(
                             padding: const EdgeInsets.all(10),
-                            color: data.color,
+                            // decoration: BoxDecoration(
+                            //   border: Border.all(color: data.color),
+                            // ),
+//                            color: data.color,
+                            color: Colors.black12,
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [

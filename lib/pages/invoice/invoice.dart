@@ -153,7 +153,12 @@ class _InvoicePageState extends State<InvoicePage> {
                           child: Text("${ShoppingCart.custID?.alamat ?? ''}"),
                         ),
                         Container(
-                          child: Text("${ShoppingCart.custID?.telepon ?? ''}"),
+                          child: Row(
+                            children: [
+                              Icon(Icons.phone_android),
+                              Text("${ShoppingCart.custID?.telepon ?? '---'}"),
+                            ],
+                          ),
                         ),
                       ],
                     )),

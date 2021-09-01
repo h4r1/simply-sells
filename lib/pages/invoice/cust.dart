@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:simply_sells/includes/mywidget.dart';
 import 'package:simply_sells/models/custdb.dart';
 import 'package:simply_sells/includes/cart.dart';
+import 'package:simply_sells/pages/invoice/custinput.dart';
+
+//import 'package:url_launcher/url_launcher.dart';
 
 class CustPage extends StatefulWidget {
   @override
@@ -47,17 +50,42 @@ class _CustPageState extends State<CustPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: _appBarTitle,
-        leading: IconButton(
-          icon: _searchIcon,
-          onPressed: _searchPressed,
-        ),
-      ),
+          title: _appBarTitle,
+          leading: IconButton(
+            icon: _searchIcon,
+            onPressed: _searchPressed,
+          ),
+          actions: [
+// onPressed: () async => await launch(
+//          "https://wa.me/${number}?text=Hello"),
+//       child: Text('Open Whatsapp'),
+          //   IconButton(
+          //     icon: Icon(Icons.add),
+          //     splashColor: Colors.cyanAccent,
+          //     onPressed: () async => await launch(
+          // "https://wa.me/081252990613?text=Hello")
+          //   ),
+
+            IconButton(
+              icon: Icon(Icons.person_add_alt_1_outlined),
+              splashColor: Colors.cyanAccent,
+              onPressed: () => custAdd(null),
+            ),
+          ]),
       body: Container(
         child: _buildList(),
-//        child: Text("Hello!"),
       ),
     );
+  }
+
+  void custAdd(custData) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return (CustInput(cust: custData));
+    })).whenComplete(() {
+//      setState(() {
+        getData();
+//      });
+    });
   }
 
   void addCart(arrCust) {
@@ -89,31 +117,54 @@ class _CustPageState extends State<CustPage> {
       return ListView.builder(
         itemCount: filteredData.length,
         itemBuilder: (BuildContext context, int index) {
-          return Card(
-              margin: EdgeInsets.symmetric(vertical: 4),
-              elevation: 4,
-              color: (index.isOdd ? Colors.white70 : Colors.white),
-              child: ListTile(
-                title: Text(filteredData[index].nama),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(filteredData[index].alamat),
-                    Text(filteredData[index].telepon),
-                  ],
-                ),
-                trailing: IconButton(
-                  icon: const Icon(Icons.shopping_cart_outlined),
-                  onPressed: () {
-                    addCart(filteredData[index]);
-                  },
-                ),
-              ));
+          return InkWell(
+            child: custCard(index),
+            onTap: () {
+              print("card tap");
+              custAdd(filteredData[index]);
+            },
+          );
         },
       );
     }
 
     return waitProgress();
+  }
+
+  Widget custCard(index) {
+    return Card(
+        margin: EdgeInsets.symmetric(vertical: 4),
+        elevation: 4,
+        color: (index.isOdd ? Colors.white70 : Colors.white),
+        child: ListTile(
+          title: Text(
+            filteredData[index].nama,
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                decoration: TextDecoration.underline),
+          ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(filteredData[index].alamat),
+              Row(
+                children: [
+                  Icon(Icons.phone_android),
+                  Text(
+                    filteredData[index].telepon,
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          trailing: IconButton(
+            icon: const Icon(Icons.shopping_cart_outlined),
+            onPressed: () {
+              addCart(filteredData[index]);
+            },
+          ),
+        ));
   }
 
   void _searchPressed() {
@@ -134,7 +185,7 @@ class _CustPageState extends State<CustPage> {
     });
   }
 
-  void getData() async {
+  void getDataX() async {
     Future<List<CustData>> apiData;
 
     data = [];
@@ -149,5 +200,20 @@ class _CustPageState extends State<CustPage> {
 
       setState(() {});
     });
+  }
+
+  void getData() async {
+    List<CustData> apiData;
+
+    data = [];
+    filteredData = [];
+    apiData = await Cust().read();
+
+    for (var Cust in apiData) {
+      data.add(Cust);
+      filteredData.add(Cust);
+
+      setState(() {});
+    }
   }
 }

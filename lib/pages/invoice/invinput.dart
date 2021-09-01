@@ -11,7 +11,6 @@ class InvInput extends StatefulWidget {
 }
 
 class _InvInputState extends State<InvInput> {
-  int idxPage = 0;
   final cPrice = TextEditingController();
   final cQty = TextEditingController();
 
@@ -112,7 +111,9 @@ class _InvInputState extends State<InvInput> {
             children: [
               Container(
                 width: 180,
-                child: TextField(
+                child: 
+                
+                TextField(
                   decoration: InputDecoration(
                     labelText: "Qty",
 //                helperText: "Qty = $strQty",
